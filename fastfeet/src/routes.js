@@ -7,9 +7,14 @@ import authMiddleware from './app/middlewares/auth';
 
 const routes = new Router();
 
-routes.get('/users', authMiddleware, UserController.show);
 routes.post('/users', UserController.store);
 routes.post('/login', SessionController.store);
-routes.post('/recipients', authMiddleware, RecipientController.store);
+
+// Checking authorized user
+routes.use(authMiddleware);
+
+routes.post('/recipients', RecipientController.store);
+routes.put('/users', UserController.update);
+routes.get('/users', UserController.show);
 
 export default routes;
