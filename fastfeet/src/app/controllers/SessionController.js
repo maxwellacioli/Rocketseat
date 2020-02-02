@@ -30,7 +30,10 @@ class SessionController {
       return res.status(401).json({ error: 'Password incorrect.' });
     }
 
-    const { id } = user;
+    const { id, provider } = user;
+
+    console.log(id);
+    console.log(provider);
 
     return res.json({
       user: {
@@ -38,7 +41,7 @@ class SessionController {
         name: user.name,
         email: user.email,
       },
-      token: jwt.sign({ id }, authConfig.secret, {
+      token: jwt.sign({ id, provider }, authConfig.secret, {
         expiresIn: authConfig.expiresIn,
       }),
     });
