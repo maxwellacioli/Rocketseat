@@ -9,13 +9,12 @@ const routes = new Router();
 
 routes.post('/users', UserController.store);
 routes.post('/login', SessionController.store);
-
+routes.get('/users', UserController.show);
 // Checking authorized user
 routes.use(authMiddleware);
 
 routes.post('/recipients', RecipientController.store);
 routes.put('/recipients', RecipientController.update);
 routes.put('/users', UserController.update);
-routes.get('/users', UserController.show);
 
 export default routes;

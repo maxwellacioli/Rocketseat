@@ -5,20 +5,12 @@ class UserController {
   async show(req, res) {
     const users = await User.findAll();
 
-    const usersInfo = [];
-
-    users.map(user => {
-      const { id, name, email, provider } = user;
-
-      usersInfo.push({
-        id,
-        name,
-        email,
-        provider,
-      });
-
-      return undefined;
-    });
+    const usersInfo = users.map(({ id, name, email, provider }) => ({
+      id,
+      name,
+      email,
+      provider,
+    }));
 
     return res.json(usersInfo);
   }
