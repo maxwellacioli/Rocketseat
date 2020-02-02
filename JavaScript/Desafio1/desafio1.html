@@ -1,0 +1,112 @@
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Java Script Desafio 1</title>
+</head>
+
+<body>
+
+  <script>
+    var endereco = {
+      rua: "Rua dos pinheiros",
+      numero: 1293,
+      bairro: "Centro",
+      cidade: "São Paulo",
+      uf: "SP"
+    };
+
+    const informacao = (endereco) => `O usuário mora em ${endereco.cidade} / ${endereco.uf}, no bairro ${endereco.bairro}, na rua "${endereco.rua}" com nº ${endereco.numero}.`;
+    // {
+    // var informacao = "O usuário mora em " + endereco.cidade + " / "
+    //   + endereco.uf + " , no bairro " + endereco.bairro + ", na rua \""
+    //   + endereco.rua + "\" com nº " + endereco.numero + ".";
+
+    // return informacao;
+    // }
+
+    function pares(x, y) {
+      if (x % 2 != 0) {
+        x += 1;
+      }
+      for (; x <= y; x += 2) {
+        console.log(x);
+      }
+    }
+
+    var skills = ["JavaScript", "ReactJS", "React Native"];
+
+    function temHalidade(skills) {
+      var temHalidade = skills.find(function (skill) {
+        return skill === 'JavaScript';
+      });
+
+      return temHalidade != undefined;
+
+      // var temHalidade = false;
+      // skills.forEach(element => {
+      //   if (element === "JavaScript") {
+      //     temHalidade = true;
+      //   }
+      // });
+
+      // return temHalidade;
+    }
+
+    function experiencia(anos) {
+      if (anos >= 0 && anos <= 1) {
+        return "Iniciante";
+      } else if (anos > 1 && anos <= 3) {
+        return "Intermediario";
+      } else if (anos > 3 && anos <= 6) {
+        return "Avançado";
+      } else if (anos > 6) {
+        return "Jedi Master";
+      } else {
+        return "O tempo deve ser positivo";
+      }
+    }
+
+    var usuarios = [
+      {
+        nome: "Diego",
+        habilidades: ["JavaScript", "ReactJS", "Redux"]
+      },
+      {
+        nome: "Gabriel",
+        habilidades: ["VueJS", "Ruby on Rails", "Elixir"]
+      }
+    ];
+
+
+
+    function habilidades(usuarios) {
+      usuarios.forEach(usuario => {
+        var hab = "O " + usuario.nome + " possui as habilidades: " +
+          usuario.habilidades.join(', ');
+
+        console.log(hab);
+      });
+
+      // for (let usuario of usuarios) {
+      //   var hab = "O " + usuario.nome + " possui as habilidades: " +
+      //   usuario.habilidades.join(', ');
+
+      //   console.log(hab);
+      // }
+    }
+
+
+
+    console.log(informacao(endereco));
+    // pares(2, 19);
+    // console.log(temHalidade(skills));
+
+    // var anosEstudo = 5;
+    // console.log(experiencia(anosEstudo));
+
+    // habilidades(usuarios);
+  </script>
+</body>
+
+</html>
