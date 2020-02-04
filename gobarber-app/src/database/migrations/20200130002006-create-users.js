@@ -1,8 +1,17 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
+    /*
+      Cria uma tabela chamada users.
+    */
     return queryInterface.createTable('users', {
+      /*
+        Aqui são definidas todas as colunas da tabela criada
+       */
       id: {
         type: Sequelize.INTEGER,
+        /*
+          Não permite que o valor da coluna seja null
+         */
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
@@ -14,6 +23,9 @@ module.exports = {
       email: {
         type: Sequelize.STRING,
         allowNull: false,
+        /*
+          O valor desta coluna dever único na tabela
+         */
         unique: true,
       },
       password_hash: {
@@ -36,6 +48,9 @@ module.exports = {
     });
   },
 
+  /*
+    Caso ocorra um rollback, será excluida a tabela users.
+   */
   down: queryInterface => {
     return queryInterface.dropTable('users');
   },

@@ -3,6 +3,9 @@ import User from '../app/models/User';
 import File from '../app/models/File';
 import databaseConfig from '../config/database';
 
+/*
+  Array com todos os models da aplicação
+ */
 const models = [User, File];
 
 class Database {
@@ -10,11 +13,22 @@ class Database {
     this.init();
   }
 
+  /*
+    Inicializa a conexão com o banco de dados
+   */
   init() {
     this.connection = new Sequelize(databaseConfig);
 
+    /*
+      Para cada model indica qual é a conexão com o banco
+     */
     models
       .map(model => model.init(this.connection))
+      /*
+        caso exista um método chamado associate, este deve conter
+        todos os models da aplicação para fazer as respectivas relações
+        entre entidades
+       */
       .map(model => model.associate && model.associate(this.connection.models));
   }
 }
