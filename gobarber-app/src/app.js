@@ -1,4 +1,5 @@
 import express from 'express';
+import path from 'path';
 import routes from './routes';
 import './database';
 
@@ -19,6 +20,13 @@ class App {
       seguem o formato json
      */
     this.server.use(express.json());
+    this.server.use(
+      '/files',
+      /*
+        o método static retorna algum arquivo presente no servidor
+       */
+      express.static(path.resolve(__dirname, '..', 'temp', 'uploads'))
+    );
   }
 
   routes() {

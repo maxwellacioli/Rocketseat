@@ -50,8 +50,12 @@ class User extends Model {
     entidade que tivesse a informação fosse a entidade target, devemos utilizar
     a associação hasOne
   */
+
+  /*
+    o atribuito 'as' dá um apelido para o relacionamento entre as entidades
+   */
   static associate(models) {
-    this.belongsTo(models.File, { foreignKey: 'avatar_id' });
+    this.belongsTo(models.File, { foreignKey: 'avatar_id', as: 'avatar' });
   }
 
   /*

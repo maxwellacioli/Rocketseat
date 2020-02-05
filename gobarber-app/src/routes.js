@@ -4,6 +4,7 @@ import multerConfig from './config/multer';
 
 import UserController from './app/controllers/UserController';
 import SessionController from './app/controllers/SessionController';
+import ProviderController from './app/controllers/ProviderController';
 import authMiddleware from './app/middlewares/auth';
 import FileController from './app/controllers/FileController';
 
@@ -34,5 +35,12 @@ routes.put('/users', UserController.update);
   informações do arquivo feito upload
  */
 routes.post('/files', upload.single('file'), FileController.store);
+
+/*
+  Apesar de um provider ser um usuário, é necessário separar a lógica para
+  outro controller, pois a proposta não é listar todos os usuários e sim apenas
+  os providers.
+ */
+routes.get('/providers', ProviderController.index);
 
 export default routes;
