@@ -6,9 +6,17 @@ import File from '../models/File';
 
 class AppointmentController {
   async index(req, res) {
+    /*
+      Faz a desestruturação de query para pegar a pagina atual da paginação,
+      e caso não exista pagina em query, o valor default é 1
+     */
+    const { page = 1 } = req.query;
+
     const appointments = await Appointment.findAll({
       where: { user_id: req.userId, canceled_at: null },
       order: ['date'],
+      limit: 20,
+      offset: (page - 1) * 20,
       attributes: ['id', 'date'],
       include: [
         {
