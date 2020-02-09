@@ -4,23 +4,36 @@ const server = express();
 
 server.use(express.json());
 
+let reqCounter = 0;
 const projects = [];
 
-function checkProjectExists(req, res, next) {
-  const { id } = req.body;
+function checkProjectIdExists (req, res, next) {
+  const { id } = req.params;
 
-  const projFilter = projects.filter((el) => {
-    if(el.id == id) {
-      return el;
-    }
-  });
+  const project = projects.find(p => p.id == id);
 
-  req.project = projFilter[0];
+  if(!project) {
+    return res.status(400).json({ 
+      error: `Does not exist a project with id: ${id}`
+    });
+  }
+
+  req.project = project;
 
   return next();
 }
 
-function checkProjectProperties(req, res, next) {
+server.use((req, res, next) => {
+  console.log(`Request method: ${req.method} / Request number: ${++reqCounter}`);
+  return next();
+});
+
+server.get('/projects', (req, res) => {
+  return res.json(projects);
+});
+
+server.post('/projects', (req, res) => {
+
   const { id, title } = req.body;
 
   if (!id) {
@@ -28,43 +41,14 @@ function checkProjectProperties(req, res, next) {
   } else if (!title) {
     return res.status(400).json({ error: 'Title is required' });
   }
-
-  req.id = id;
-  req.title = title;
-
-  return next();
-}
-
-server.post('/projects/:id/tasks', (req, res) => {
-
-  const { id } = req.params;
-
-  const projFilter = projects.filter((el) => {
-    if(el.id == id) {
-      return el;
-    }
-  });
-
-  const project = projFilter[0];
-
-  if(project == undefined) {
-    return res.status(400).json({ error: `Project not found with id: ${id}` });
-  }
-
-  const { title } = req.body;
-
-  project.tasks.push(title);
-
-  return res.json(project);
-});
-
-server.post('/projects', checkProjectProperties, checkProjectExists, (req, res) => {
   
-  if(req.project != undefined) {
-    return res.status(400).json({ error: 'Already exists a project with same id' });
-  }
+  const proj = projects.find(p => p.id == id);
 
-  const { id, title } = req.body;
+  if(proj) {
+    return res.status(400).json({ 
+      error: `Already exists a project with id: ${id}` 
+    });
+  }
 
   const project = {
     id,
@@ -77,40 +61,30 @@ server.post('/projects', checkProjectProperties, checkProjectExists, (req, res) 
   return res.json(project);
 });
 
-server.get('/projects', (req, res) => {
-  return res.json(projects);
-});
+server.post('/projects/:id/tasks', checkProjectIdExists, (req, res) => {
+  const { title } = req.body;
 
-server.get('/projects/:id', (req, res) => {
-  const { id } = req.params;
-
-  const projFilter = projects.filter((el) => {
-    if(el.id == id) {
-      return el;
-    }
-  });
-
-  const project = projFilter[0];
-
-  if(project != undefined) {
-    return res.json(project);
+  if(!title) {
+    return res.status(400).json({error: 'Title is required'});
   }
 
-  return res.status(400).json({ error: `Project not found with id: ${id}` });
+  req.project.tasks.push(title);
+
+  return res.json(req.project);
 });
 
-server.put('/projects/:id', checkProjectExists, (req, res) => {
-  if(req.project == undefined) {
-    return res.status(400).json({ error: `Project not found with id: ${id}` });
-  }
+server.get('/projects/:id', checkProjectIdExists, (req, res) => {
+    return res.json(req.project);
+});
 
+server.put('/projects/:id', checkProjectIdExists, (req, res) => {
   const { title } = req.body;
 
   if (!title) {
     return res.status(400).json({ error: 'Title is required' });
   }
 
-  const { id } = req.params;
+  const { id } = req.project;
 
   const index = projects.findIndex( (el) => el.id == id);
 
@@ -119,18 +93,14 @@ server.put('/projects/:id', checkProjectExists, (req, res) => {
   return res.json(projects[index]);
 });
 
-server.delete('/projects/:id', checkProjectExists, (req, res) => {
-  if(req.project != undefined) {
-    return res.status(400).json({ error: 'Already exists a project with same id' });
-  }
-
-  const { id } = req.params;
+server.delete('/projects/:id', checkProjectIdExists, (req, res) => {
+  const { id } = req.project;
 
   const index = projects.findIndex( (el) => el.id == id);
   
   projects.splice(index, 1);
 
-  return res.send();
+  return res.json();
 });
 
 server.listen(3000);
