@@ -9,6 +9,7 @@ import authMiddleware from './app/middlewares/auth';
 import FileController from './app/controllers/FileController';
 import AppointmentController from './app/controllers/AppointmentController';
 import ScheduleController from './app/controllers/ScheduleController';
+import NotificationController from './app/controllers/NotificationController';
 
 /*
   Cria uma instância de Router presente em express
@@ -56,5 +57,15 @@ routes.get('/appointments', AppointmentController.index);
   Listagem dos agendamentos de um provider
  */
 routes.get('/schedule', ScheduleController.index);
+
+/*
+  Listagem de notificações de usuários
+ */
+routes.get('/notifications', NotificationController.index);
+
+/*
+  Marcar uma notificação como lida
+*/
+routes.put('/notifications/:id', NotificationController.update);
 
 export default routes;
