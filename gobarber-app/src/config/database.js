@@ -12,7 +12,7 @@ module.exports = {
   password: 'postgres',
   database: 'gobarber',
   define: {
-    // TODO hora que foi feita a alteração no banco
+    // TODO cria duas colunas em cada tabela (created_at e updated_at) no banco
     timestamps: true,
     /*
       toda vez que uma variável for, por exemplo, userId, ao criar
