@@ -24,6 +24,11 @@ class ScheduleController {
      */
     // const { date } = req.body;
     const { date } = req.query;
+
+    if (!date) {
+      return res.status(400).json({ error: 'Schedule date is required.' });
+    }
+
     const parsedDate = parseISO(date);
 
     const appointments = await Appointment.findAll({
