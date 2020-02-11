@@ -134,11 +134,14 @@ class AppointmentController {
     const { id } = req.params;
 
     /*
-      Foi incluído os dados do provider através da propriedade include do
-      sequelize
+      Foi incluído os dados do provider e do usuário através da propriedade
+      include do sequelize
      */
     const appointment = await Appointment.findByPk(id, {
-      include: [{ model: User, as: 'provider', attributes: ['name', 'email'] }],
+      include: [
+        { model: User, as: 'provider', attributes: ['name', 'email'] },
+        { model: User, as: 'user', attributes: ['name', 'email'] },
+      ],
     });
     /*
       Para pegar o provider poderia também fazer uma outra query para buscar
@@ -167,7 +170,14 @@ class AppointmentController {
     await Mail.sendMail({
       to: `${appointment.provider.name} <${appointment.provider.email}>`,
       subject: 'Agendamento Cancelado',
-      text: 'Você tem um novo cancelamento',
+      template: 'cancellation',
+      context: {
+        provider: appointment.provider.name,
+        user: appointment.user.name,
+        date: format(appointment.date, "dd 'de' MMMM', às' hh:mm'h'", {
+          locale: ptBR,
+        }),
+      },
     });
 
     return res.json();
