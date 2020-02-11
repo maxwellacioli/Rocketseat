@@ -1,4 +1,5 @@
 import {
+  isAfter,
   startOfDay,
   endOfDay,
   setHours,
@@ -44,16 +45,19 @@ class AvailableController {
       '18:00',
     ];
 
-    const available = schedule.map(s => {
-      const [hour] = s.split(':');
+    const available = schedule.map(time => {
+      const [hour] = time.split(':');
 
       const availableTime = setSeconds(
         setMinutes(setHours(searchDate, hour), 0),
         0
       );
       return {
-        s,
+        time,
         value: format(availableTime, "yyyy-MM-dd'T'HH:mm:ssxxx"),
+        available:
+          isAfter(availableTime, new Date()) &&
+          !appointments.find(ap => format(ap.date, 'HH:mm') === time),
       };
     });
 
