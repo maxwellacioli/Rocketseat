@@ -5,7 +5,6 @@ import {
   setMinutes,
   setSeconds,
   format,
-  parseISO,
 } from 'date-fns';
 import { Op } from 'sequelize';
 import Appointment from '../models/Appointment';
@@ -52,7 +51,10 @@ class AvailableController {
         setMinutes(setHours(searchDate, hour), 0),
         0
       );
-      return new Date(availableTime);
+      return {
+        s,
+        value: format(availableTime, "yyyy-MM-dd'T'HH:mm:ssxxx"),
+      };
     });
 
     return res.json(available);
