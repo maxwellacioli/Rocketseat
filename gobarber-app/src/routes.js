@@ -10,6 +10,7 @@ import FileController from './app/controllers/FileController';
 import AppointmentController from './app/controllers/AppointmentController';
 import ScheduleController from './app/controllers/ScheduleController';
 import NotificationController from './app/controllers/NotificationController';
+import AvailableController from './app/controllers/AvailableController';
 
 /*
   Cria uma instância de Router presente em express
@@ -45,6 +46,7 @@ routes.post('/files', upload.single('file'), FileController.store);
   os providers.
  */
 routes.get('/providers', ProviderController.index);
+routes.get('/providers/:providerId/available', AvailableController.index);
 
 routes.post('/appointments', AppointmentController.store);
 
