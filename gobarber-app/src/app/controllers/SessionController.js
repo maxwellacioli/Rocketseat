@@ -63,6 +63,7 @@ class SessionController {
       armazenada no payloader do token, seguindo do segredo e da data de
       expiração
     */
+
     return res.json({
       user: {
         id,

@@ -1,3 +1,5 @@
+require('dotenv/config');
+
 /*
   Contém todas as informações para a aplicação se conectar ao banco de dados.
   A porta definida é 5433, porque ao criarmos um container no docker, foi
@@ -6,11 +8,11 @@
 */
 module.exports = {
   dialect: 'postgres',
-  host: 'localhost',
-  port: 5433,
-  username: 'postgres',
-  password: 'postgres',
-  database: 'gobarber',
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  username: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  database: process.env.DB_NAME,
   define: {
     // TODO cria duas colunas em cada tabela (created_at e updated_at) no banco
     timestamps: true,
