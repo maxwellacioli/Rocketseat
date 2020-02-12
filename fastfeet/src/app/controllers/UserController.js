@@ -3,6 +3,33 @@ import User from '../models/User';
 
 class UserController {
   async show(req, res) {
+    if (!req.provider) {
+      return res
+        .status(401)
+        .json({ error: "You don't permission to access this page" });
+    }
+
+    const user = await User.findByPk(req.params.id);
+
+    if (!user) {
+      return res
+        .status(400)
+        .json({ error: `Does not exist a user with id: ${req.params.id}` });
+    }
+
+    return res.json({
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      provider: user.provider,
+    });
+  }
+
+  async index(req, res) {
+    if (!req.provider) {
+      return res.json({ error: "You don't permission to access this page" });
+    }
+
     const users = await User.findAll();
 
     const usersInfo = users.map(({ id, name, email, provider }) => ({
