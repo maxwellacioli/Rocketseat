@@ -1,5 +1,6 @@
 import * as Yup from 'yup';
 import Courier from '../models/Courier';
+import File from '../models/File';
 
 class CourierController {
   async store(req, res) {
@@ -31,7 +32,11 @@ class CourierController {
   }
 
   async index(req, res) {
-    const couriers = await Courier.findAll();
+    const couriers = await Courier.findAll({
+      include: [
+        { model: File, as: 'avatar', attributes: ['id', 'path', 'url'] },
+      ],
+    });
 
     return res.json(couriers);
   }

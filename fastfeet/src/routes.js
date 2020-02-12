@@ -1,14 +1,15 @@
 import { Router } from 'express';
 import multer from 'multer';
+import multerConfig from './config/multer';
+
+import authMiddleware from './app/middlewares/auth';
+import providerMiddleware from './app/middlewares/provider';
+
 import UserController from './app/controllers/UserController';
 import SessionController from './app/controllers/SessionController';
 import RecipientController from './app/controllers/RecipientController';
 import FileController from './app/controllers/FileController';
 import CourierController from './app/controllers/CourierController';
-import multerConfig from './config/multer';
-
-import authMiddleware from './app/middlewares/auth';
-import providerMiddleware from './app/middlewares/provider';
 
 const uploads = multer(multerConfig);
 
