@@ -47,6 +47,7 @@ routes.post(
 
 routes.post('/orders', OrderController.store);
 routes.get('/orders', OrderController.index);
+routes.delete('/orders/:id', OrderController.delete);
 
 routes.put(
   '/withdrawls/couriers/:courierId/orders/:orderId',

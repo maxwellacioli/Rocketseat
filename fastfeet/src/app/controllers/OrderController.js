@@ -47,6 +47,22 @@ class OrderController {
 
     return res.json(orders);
   }
+
+  async delete(req, res) {
+    const { id } = req.params;
+
+    const order = await Order.findByPk(id);
+
+    if (!order) {
+      return res
+        .status(400)
+        .json({ error: `Does not exist an order with id: ${id}` });
+    }
+
+    await order.destroy();
+
+    return res.json();
+  }
 }
 
 export default new OrderController();
