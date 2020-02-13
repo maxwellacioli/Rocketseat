@@ -11,6 +11,7 @@ import RecipientController from './app/controllers/RecipientController';
 import FileController from './app/controllers/FileController';
 import CourierController from './app/controllers/CourierController';
 import OrderController from './app/controllers/OrderController';
+import WithdrawlController from './app/controllers/WithdrawlController';
 
 const upload = multer(multerConfig);
 
@@ -37,13 +38,18 @@ routes.get('/couriers', CourierController.index);
 routes.delete('/couriers/:id', CourierController.delete);
 routes.put('/couriers/:id', CourierController.update);
 
-routes.post('/files/:courierId', upload.single('file'), FileController.store);
+routes.post(
+  '/files/couriers/:courierId',
+  upload.single('file'),
+  FileController.store
+);
 
 routes.post('/orders', OrderController.store);
 routes.get('/orders', OrderController.index);
 
-routes.put('/couriers/:courierId/orders/:orderId', (req, res) => {
-  return res.send();
-});
+routes.put(
+  '/withdrawls/couriers/:courierId/orders/:orderId',
+  WithdrawlController.update
+);
 
 export default routes;
