@@ -11,7 +11,7 @@ import RecipientController from './app/controllers/RecipientController';
 import FileController from './app/controllers/FileController';
 import CourierController from './app/controllers/CourierController';
 
-const uploads = multer(multerConfig);
+const upload = multer(multerConfig);
 
 const routes = new Router();
 
@@ -35,6 +35,6 @@ routes.post('/couriers', CourierController.store);
 routes.get('/couriers', CourierController.index);
 routes.delete('/couriers/:id', CourierController.delete);
 routes.put('/couriers/:id', CourierController.update);
-routes.post('/files/:id', uploads.single('file'), FileController.store);
+routes.post('/files/:courierId', upload.single('file'), FileController.store);
 
 export default routes;

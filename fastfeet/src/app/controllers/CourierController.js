@@ -33,9 +33,7 @@ class CourierController {
 
   async index(req, res) {
     const couriers = await Courier.findAll({
-      include: [
-        { model: File, as: 'avatar', attributes: ['id', 'path', 'url'] },
-      ],
+      include: [{ model: File, as: 'avatar', attributes: ['path', 'url'] }],
     });
 
     return res.json(couriers);
