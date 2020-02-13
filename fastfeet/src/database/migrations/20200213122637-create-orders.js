@@ -29,13 +29,29 @@ module.exports = {
       },
       signature_id: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: {
-          model: 'couriers',
+          model: 'files',
           key: 'id',
         },
         onUpdate: 'CASCADE',
         onDelete: 'SET NULL',
+      },
+      product: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      canceled_at: {
+        type: Sequelize.DATE,
+        allowNull: true,
+      },
+      start_date: {
+        type: Sequelize.DATE,
+        allowNull: true,
+      },
+      end_date: {
+        type: Sequelize.DATE,
+        allowNull: true,
       },
       created_at: {
         type: Sequelize.DATE,
