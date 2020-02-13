@@ -14,7 +14,7 @@ class App {
   middlewares() {
     this.server.use(express.json());
     this.server.use(
-      '/files',
+      '/files/:courierId',
       express.static(path.resolve(__dirname, '..', 'temp', 'uploads'))
     );
   }
