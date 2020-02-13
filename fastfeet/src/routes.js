@@ -12,6 +12,7 @@ import FileController from './app/controllers/FileController';
 import CourierController from './app/controllers/CourierController';
 import OrderController from './app/controllers/OrderController';
 import WithdrawlController from './app/controllers/WithdrawlController';
+import DeliveryController from './app/controllers/DeliveryController';
 
 const upload = multer(multerConfig);
 
@@ -50,6 +51,11 @@ routes.get('/orders', OrderController.index);
 routes.put(
   '/withdrawls/couriers/:courierId/orders/:orderId',
   WithdrawlController.update
+);
+
+routes.put(
+  '/deliveries/couriers/:courierId/orders/:orderId',
+  DeliveryController.update
 );
 
 export default routes;

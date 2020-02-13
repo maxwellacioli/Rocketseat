@@ -1,3 +1,4 @@
+import { getHours } from 'date-fns';
 import Courier from '../models/Courier';
 import Order from '../models/Order';
 
@@ -21,7 +22,17 @@ class WithdrawlController {
         .json({ error: `Does not exist a courier with id: ${orderId}` });
     }
 
-    order.start_date = new Date();
+    const startDate = new Date();
+
+    const hour = getHours(startDate);
+
+    if (hour < 8 || hour >= 18) {
+      return res.status(403).json({
+        error: 'Orders just can be withdrawed between 08:00 and 18:00',
+      });
+    }
+
+    order.start_date = startDate;
 
     await order.save();
 
