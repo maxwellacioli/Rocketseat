@@ -2,6 +2,7 @@ import * as Yup from 'yup';
 import Courier from '../models/Courier';
 import Recipient from '../models/Recipient';
 import Order from '../models/Order';
+import Mail from '../../lib/Mail';
 
 class OrderController {
   async store(req, res) {
@@ -37,6 +38,12 @@ class OrderController {
       recipient_id: recipientId,
       courier_id: courierId,
       product,
+    });
+
+    await Mail.sendMail({
+      to: `${courier.name} <${courier.email}>`,
+      subject: 'Nova entrega cadastrada',
+      text: 'Você tem uma nova entrega.',
     });
 
     return res.json(order);
