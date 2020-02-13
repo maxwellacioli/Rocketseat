@@ -42,4 +42,8 @@ routes.post('/files/:courierId', upload.single('file'), FileController.store);
 routes.post('/orders', OrderController.store);
 routes.get('/orders', OrderController.index);
 
+routes.put('/couriers/:courierId/orders/:orderId', (req, res) => {
+  return res.send();
+});
+
 export default routes;
