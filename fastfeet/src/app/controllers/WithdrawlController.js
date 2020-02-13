@@ -21,7 +21,6 @@ class WithdrawlController {
         .json({ error: `Does not exist a courier with id: ${orderId}` });
     }
 
-    order.product = 'Caneta';
     order.start_date = new Date();
 
     await order.save();
