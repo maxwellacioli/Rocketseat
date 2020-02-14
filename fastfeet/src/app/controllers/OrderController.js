@@ -43,7 +43,11 @@ class OrderController {
     await Mail.sendMail({
       to: `${courier.name} <${courier.email}>`,
       subject: 'Nova entrega cadastrada',
-      text: 'Você tem uma nova entrega.',
+      template: 'order',
+      context: {
+        courier: courier.name,
+        recipient: recipient.name,
+      },
     });
 
     return res.json(order);
