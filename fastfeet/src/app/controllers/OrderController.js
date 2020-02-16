@@ -2,7 +2,8 @@ import * as Yup from 'yup';
 import Courier from '../models/Courier';
 import Recipient from '../models/Recipient';
 import Order from '../models/Order';
-import Mail from '../../lib/Mail';
+import Queue from '../../lib/Queue';
+import OrderRegistrationMail from '../jobs/OrderRegistrationMail';
 
 class OrderController {
   async store(req, res) {
@@ -40,15 +41,8 @@ class OrderController {
       product,
     });
 
-    await Mail.sendMail({
-      to: `${courier.name} <${courier.email}>`,
-      subject: 'Nova entrega cadastrada',
-      template: 'order',
-      context: {
-        courier: courier.name,
-        recipient: recipient.name,
-      },
-    });
+    // Adicionar job na fila
+    await Queue.add(OrderRegistrationMail.key, { courier, recipient });
 
     return res.json(order);
   }

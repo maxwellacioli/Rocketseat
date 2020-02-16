@@ -17,6 +17,7 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
+    "import/prefer-default-export": "off",
     "prettier/prettier": "error",
     "linebreak-style": 0,
     "class-methods-use-this": "off",
