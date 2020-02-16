@@ -38,6 +38,7 @@ routes.post('/couriers', CourierController.store);
 routes.get('/couriers', CourierController.index);
 routes.delete('/couriers/:id', CourierController.delete);
 routes.put('/couriers/:id', CourierController.update);
+routes.get('/couriers/:id/orders/deliveries', DeliveryController.index);
 
 routes.post(
   '/files/couriers/:courierId',

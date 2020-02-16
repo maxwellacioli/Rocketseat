@@ -12,10 +12,10 @@ class DeliveryController {
       return res.status(400).json({ error: 'Validation error.' });
     }
 
-    const { done } = req.body;
+    const { delivered } = req.body;
     const { courierId } = req.params;
 
-    if (!done) {
+    if (!delivered) {
       const orders = await Order.find({
         where: {
           courier_id: courierId,
