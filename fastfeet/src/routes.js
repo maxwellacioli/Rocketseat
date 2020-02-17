@@ -57,6 +57,7 @@ routes.put(
 
 routes.put(
   '/deliveries/couriers/:courierId/orders/:orderId',
+  upload.single('file'),
   DeliveryController.update
 );
 
