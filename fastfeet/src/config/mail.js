@@ -1,10 +1,12 @@
+require('dotenv/config');
+
 module.exports = {
-  host: 'smtp.mailtrap.io',
-  port: 2525,
+  host: process.env.MAIL_HOST,
+  port: process.env.MAIL_PORT,
   secure: false,
   auth: {
-    user: 'b168d96f48e638',
-    pass: 'dff875af9be3ea',
+    user: process.env.MAIL_USER,
+    pass: process.env.MAIL_PASS,
   },
   default: {
     from: 'Equipe FatFeet <noreply@fastfeet.com>',

@@ -1,6 +1,7 @@
 import { getHours } from 'date-fns';
 import Courier from '../models/Courier';
 import Order from '../models/Order';
+import Withdrawls from '../../lib/Withdrawls';
 
 class WithdrawlController {
   async update(req, res) {
@@ -24,6 +25,12 @@ class WithdrawlController {
 
     const startDate = new Date();
 
+    if (Withdrawls.withdrawls === 5) {
+      return res
+        .status(403)
+        .json({ error: 'Only five withdrawals can be made per day' });
+    }
+
     const hour = getHours(startDate);
 
     if (hour < 8 || hour >= 18) {
@@ -35,6 +42,9 @@ class WithdrawlController {
     order.start_date = startDate;
 
     await order.save();
+
+    Withdrawls.withdrawls += 1;
+    Withdrawls.checkDate(startDate);
 
     return res.json(order);
   }

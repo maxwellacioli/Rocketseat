@@ -1,6 +1,7 @@
 import * as Yup from 'yup';
 import Courier from '../models/Courier';
 import Order from '../models/Order';
+import File from '../models/File';
 
 class DeliveryController {
   async index(req, res) {
@@ -47,6 +48,14 @@ class DeliveryController {
       return res
         .status(400)
         .json({ error: `Does not exist a courier with id: ${orderId}` });
+    }
+
+    if (req.file) {
+      const { originalname: name, filename: path } = req.file;
+
+      const file = await File.create({ name, path });
+
+      order.signature_id = file.id;
     }
 
     order.end_date = new Date();
