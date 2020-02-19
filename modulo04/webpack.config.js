@@ -1,8 +1,14 @@
 const path = require('path');
 
 module.exports = {
+  /* 
+    Definição do caminho do arquivo de entrada
+  */
   entry: path.resolve(__dirname, 'src', 'index.js'),
   output: {
+    /* 
+      Definição do diretorio do arquivo resultando do webpack
+    */
     path: path.resolve(__dirname, 'public'),
     filename: 'bundle.js',
   },
