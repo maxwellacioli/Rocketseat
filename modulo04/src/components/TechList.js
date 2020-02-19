@@ -67,8 +67,7 @@ class TechList extends Component {
    */
   componentDidMount() {
     const techs = localStorage.getItem('techs');
-    
-    
+
     if(techs) {
       this.setState({techs: JSON.parse(techs)});
     }
