@@ -2,7 +2,7 @@ import React from 'react';
 
 import Header from './components/Header';
 
-import './css/App.css';
+import './App.css';
 
 function App() {
   return <div>
