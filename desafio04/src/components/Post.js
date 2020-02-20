@@ -21,7 +21,7 @@ function Post({post}) {
       <div>
         <hr/>
       </div>
-      <div>
+      <div className="end-post" >
         <ul>
           {post.comments.map(comment => 
           <Comment 

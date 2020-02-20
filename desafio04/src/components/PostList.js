@@ -47,6 +47,14 @@ class PostList extends Component {
               avatar: profileAvatar
             },
             content: "ReactJS e Node.js"
+          },
+          {
+            id: 2,
+            author: {
+              name: "Cristaldo Josefo",
+              avatar: profileAvatar
+            },
+            content: "ReactNavite e ReacJS"
           }
         ]
       }
