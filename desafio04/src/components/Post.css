@@ -1,0 +1,52 @@
+.post {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 20px 0 20px;
+  font-family: Helvetica, sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.post div div {
+  display: flex;
+  flex-direction: column;
+}
+
+.post div hr {
+  border: 0;
+  border-top: 1px solid #EEE;
+}
+
+.post-author {
+  display: flex;
+  align-items: center;
+}
+
+.post-author div {
+  margin-right: 20px;
+}
+
+.post-author div p {
+  font-size: 11px;
+  color: #9A9A9A;
+}
+
+.post-author div p:first-of-type {
+  font-weight: bold;
+  font-size: 14px;
+  color: #000;
+}
+
+.post-author div img {
+  width: 40px;
+  border-radius: 50%;
+}
+
+.post div {
+  margin-bottom: 20px;
+}
+
+.post div.post-author {
+  margin-bottom: 0;
+}

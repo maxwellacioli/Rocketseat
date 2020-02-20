@@ -1,14 +1,14 @@
-#post-list {
+.post-list {
   padding: 0px 162px;
 }
 
-#post-list ul {
+.post-list ul {
   width: 100%;
 }
 
-#post-list ul li {
+ul li.post {
+  margin-top: 20px;
   background: #FFFFFF;
   display: flex;
-  margin: 20px 0 0 0;
   justify-content: center;
 }

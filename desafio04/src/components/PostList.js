@@ -15,7 +15,7 @@ class PostList extends Component {
           avatar: profileAvatar
         },
         date: "04 Jun 2019",
-        content: "Pessoal, alguém sabe se a Rocketseat está contratando?",
+        content: "Pessoal, alguém sabe me dizer por que usar React?",
         comments: [
           {
             id: 1,
@@ -23,7 +23,11 @@ class PostList extends Component {
               name: "Diego Fernandes",
               avatar: profileAvatar
             },
-            content: "Conteúdo do comentário"
+            content: "O React tem sido usado por grandes companhias ao redor do" 
+                  + " mundo. Algumas delas: Netflix, Airbnb, American Express," 
+                  + " Facebook, WhatsApp, eBay e Instagram. Essa é a prova" 
+                  + " de que a ferramenta tem um número de vantagens que não" 
+                  + " têm nem comparação nos seus competidores."
           }
         ]
       },
@@ -50,7 +54,7 @@ class PostList extends Component {
   };
 
   render() {
-    return <div id="post-list">
+    return <div className="post-list">
       <ul>
         {this.state.posts.map(post =>   
           <Post
