@@ -4,14 +4,10 @@ header {
   font-family: Arial, Helvetica, sans-serif;
   max-height: 60px;
   margin: 0;
-  padding: 0;
+  padding: 0 40px 0 40px;
 
   display: flex;
   align-items: center;
-}
-
-header h2 {
-  padding-left: 30px;
 }
 
 header ul {
@@ -20,8 +16,6 @@ header ul {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-
-  padding-right: 30px;
 }
 
 ul li {
