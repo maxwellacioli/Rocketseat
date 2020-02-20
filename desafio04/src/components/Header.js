@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import '../css/Header.css';
+import './Header.css';
 
 import profile from '../assets/profile.png';
 
