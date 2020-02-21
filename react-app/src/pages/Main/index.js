@@ -3,10 +3,5 @@ import React from 'react';
 import { Title } from './styles';
 
 export default function Main() {
-  return (
-    <Title>
-      Main
-      <small>Small</small>
-    </Title>
-  );
+  return <Title>Hey you!</Title>;
 }
