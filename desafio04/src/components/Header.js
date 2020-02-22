@@ -7,11 +7,13 @@ import profile from '../assets/profile.png';
 class Header extends Component {
   render() {
     return <header>
-            <h2 className="test" >facebook</h2>
-            <ul>
-              <li><p className="profile-label" >Meu perfil</p></li>
-              <li><img className="profile-img" src={profile} alt="profile" /></li>
-            </ul>
+            <div className="header-app">
+              <h2>facebook</h2>
+              <ul>
+                <li><p className="profile-label" >Meu perfil</p></li>
+                <li><img className="profile-img" src={profile} alt="profile" /></li>
+              </ul>
+            </div>
           </header>
   };
 }
