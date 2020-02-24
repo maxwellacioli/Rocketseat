@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { FaGithubAlt, FaPlus, FaSpinner } from 'react-icons/fa';
 
 import api from '../../services/api';
 
-import { Container, Form, SubmitButton, List } from './styles';
+import Container from '../../components/Container';
+import { Form, SubmitButton, List } from './styles';
 
 export default class Main extends Component {
   /*
@@ -21,6 +23,22 @@ export default class Main extends Component {
     repos: [],
     loading: false,
   };
+
+  componentDidMount() {
+    const repositories = localStorage.getItem('repositories');
+
+    if (repositories) {
+      this.setState({ repos: JSON.parse(repositories) });
+    }
+  }
+
+  componentDidUpdate(prevProp, prevState) {
+    const { repos } = this.state;
+
+    if (prevState.repos !== repos) {
+      localStorage.setItem('repositories', JSON.stringify(repos));
+    }
+  }
 
   handleInputChange = e => {
     this.setState({ newRepo: e.target.value });
@@ -72,7 +90,9 @@ export default class Main extends Component {
           {repos.map(repo => (
             <li key={repo.name}>
               <span>{repo.name}</span>
-              <a href="">Detalhes</a>
+              <Link to={`/repository/${encodeURIComponent(repo.name)}`}>
+                Detalhes
+              </Link>
             </li>
           ))}
         </List>
