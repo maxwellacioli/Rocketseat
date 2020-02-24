@@ -22,6 +22,7 @@ export default class Main extends Component {
     newRepo: '',
     repos: [],
     loading: false,
+    error: false,
   };
 
   componentDidMount() {
@@ -41,7 +42,7 @@ export default class Main extends Component {
   }
 
   handleInputChange = e => {
-    this.setState({ newRepo: e.target.value });
+    this.setState({ newRepo: e.target.value, error: false });
   };
 
   handleSubmit = async e => {
@@ -51,18 +52,33 @@ export default class Main extends Component {
 
     this.setState({ loading: true });
 
-    const response = await api.get(`/repos/${newRepo}`);
+    try {
+      const duplicated = repos.find(el => el.name === newRepo);
 
-    const data = {
-      name: response.data.full_name,
-    };
+      if (duplicated) {
+        throw new Error('Repositório duplicado');
+      }
 
-    this.setState({ repos: [...repos, data], newRepo: '', loading: false });
+      const response = await api.get(`/repos/${newRepo}`);
+
+      const data = {
+        name: response.data.full_name,
+      };
+
+      this.setState({
+        repos: [...repos, data],
+        newRepo: '',
+        loading: false,
+        error: false,
+      });
+    } catch (error) {
+      this.setState({ loading: false, error: true });
+      // console.log(error);
+    }
   };
 
   render() {
-    const { newRepo, repos, loading } = this.state;
-    const isDisabled = newRepo.length === 0 || loading;
+    const { newRepo, repos, loading, error } = this.state;
 
     return (
       <Container>
@@ -70,7 +86,7 @@ export default class Main extends Component {
           <FaGithubAlt />
           Repositórios
         </h1>
-        <Form onSubmit={this.handleSubmit}>
+        <Form onSubmit={this.handleSubmit} error={error ? 1 : 0}>
           <input
             type="text"
             placeholder="Adicionar repositório"
@@ -78,7 +94,10 @@ export default class Main extends Component {
             onChange={this.handleInputChange}
           />
 
-          <SubmitButton loading={loading} disabled={isDisabled}>
+          <SubmitButton
+            loading={loading ? 1 : 0}
+            emptyInput={newRepo.length === 0 ? 1 : 0}
+          >
             {loading ? (
               <FaSpinner color="#fff" size={14} />
             ) : (

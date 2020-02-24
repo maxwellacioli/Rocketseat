@@ -25,7 +25,7 @@ export const Form = styled.form`
 
   input {
     flex: 1;
-    border: 1px solid #eee;
+    border: ${props => (props.error ? '1px solid #f00' : '1px solid #eee')};
     padding: 10px 15px;
     border-radius: 4px;
     font-size: 16px;
@@ -46,7 +46,7 @@ export const SubmitButton = styled.button.attrs(props => ({
   /*
     Alternativa de passar as properties para o styled component
    */
-  // disabled: props.loading,
+  disabled: props.loading || props.emptyInput,
 }))`
   background: #7159c1;
   border: 0;
