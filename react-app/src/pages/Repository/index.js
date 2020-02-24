@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import api from '../../services/api';
-import { Loading, Owner, IssueList } from './styles';
+import { Loading, Owner, IssueList, IssueFilter } from './styles';
 import Container from '../../components/Container';
+import 'bootstrap/dist/css/bootstrap.css';
 
 export default class Repository extends Component {
   static propTypes = {
@@ -29,8 +30,8 @@ export default class Repository extends Component {
       api.get(`repos/${repoName}`),
       api.get(`repos/${repoName}/issues`, {
         params: {
-          state: 'open',
-          per_page: 5,
+          state: 'all',
+          // per_page: 10,
         },
       }),
     ]);
@@ -42,12 +43,28 @@ export default class Repository extends Component {
     });
   }
 
+  handleClick = async e => {
+    const { match } = this.props;
+
+    const repoName = decodeURIComponent(match.params.repository);
+
+    const issues = await api.get(`repos/${repoName}/issues`, {
+      params: {
+        state: e.target.id,
+        // per_page: 10,
+      },
+    });
+    this.setState({ issues: issues.data });
+  };
+
   render() {
     const { repository, issues, loading } = this.state;
 
     if (loading) {
       return <Loading>Carregando...</Loading>;
     }
+
+    const filterLabel = ['all', 'open', 'closed'];
 
     return (
       <Container>
@@ -58,6 +75,22 @@ export default class Repository extends Component {
           <p>{repository.description}</p>
         </Owner>
 
+        <IssueFilter>
+          <span>Filtrar por:</span>
+          <div className="btn-group" role="group" aria-label="Basic example">
+            {filterLabel.map(f => (
+              <button
+                key={f}
+                id={f}
+                type="button"
+                className="btn btn-primary"
+                onClick={this.handleClick}
+              >
+                {f}
+              </button>
+            ))}
+          </div>
+        </IssueFilter>
         <IssueList>
           {issues.map(issue => (
             <li key={String(issue.id)}>
