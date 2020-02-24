@@ -62,6 +62,7 @@ export default class Main extends Component {
 
   render() {
     const { newRepo, repos, loading } = this.state;
+    const isDisabled = newRepo.length === 0 || loading;
 
     return (
       <Container>
@@ -77,7 +78,7 @@ export default class Main extends Component {
             onChange={this.handleInputChange}
           />
 
-          <SubmitButton loading={loading}>
+          <SubmitButton loading={loading} disabled={isDisabled}>
             {loading ? (
               <FaSpinner color="#fff" size={14} />
             ) : (

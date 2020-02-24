@@ -43,7 +43,10 @@ const rotate = keyframes`
 
 export const SubmitButton = styled.button.attrs(props => ({
   type: 'submit',
-  disabled: props.loading,
+  /*
+    Alternativa de passar as properties para o styled component
+   */
+  // disabled: props.loading,
 }))`
   background: #7159c1;
   border: 0;
