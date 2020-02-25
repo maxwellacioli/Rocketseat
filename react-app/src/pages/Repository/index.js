@@ -85,6 +85,8 @@ export default class Repository extends Component {
                 type="button"
                 className="btn btn-primary"
                 onClick={this.handleClick}
+                // eslint-disable-next-line jsx-a11y/no-autofocus
+                autoFocus={f === 'all' ? true : undefined}
               >
                 {f}
               </button>
