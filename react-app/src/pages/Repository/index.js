@@ -106,15 +106,18 @@ export default class Repository extends Component {
 
         <IssueList>
           <IssueFilter active={filterIndex}>
-            {filters.map((filter, index) => (
-              <button
-                type="button"
-                key={filter.label}
-                onClick={() => this.handleFilterClick(index)}
-              >
-                {filter.label}
-              </button>
-            ))}
+            <span>Filtrar por:</span>
+            <div>
+              {filters.map((filter, index) => (
+                <button
+                  type="button"
+                  key={filter.label}
+                  onClick={() => this.handleFilterClick(index)}
+                >
+                  {filter.label}
+                </button>
+              ))}
+            </div>
           </IssueFilter>
           {issues.map(issue => (
             <li key={String(issue.id)}>

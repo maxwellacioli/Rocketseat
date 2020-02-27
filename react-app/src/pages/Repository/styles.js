@@ -91,17 +91,26 @@ export const IssueList = styled.ul`
 
 export const IssueFilter = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   padding-bottom: 15px;
+
+  span {
+    font-size: 16px;
+    font-weight: bold;
+    color: #9157c1;
+    margin-bottom: 5px;
+  }
+
   button {
     border-radius: 4px;
     outline: 0;
     border: 0;
     padding: 8px;
-    margin: 0 0.25rem;
+    margin-right: 4px;
     background: #9157c1;
     color: #fff;
-    &:nth-child(${props => props.active + 1}) {
+    &:nth-of-type(${props => props.active + 1}) {
       background: #7211c2;
       color: white;
     }
