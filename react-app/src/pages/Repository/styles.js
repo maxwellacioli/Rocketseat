@@ -122,7 +122,8 @@ export const PageActions = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 12px;
+  font-size: 14px;
+  font-weight: bold;
   color: #9157c1;
 
   button {
@@ -132,7 +133,7 @@ export const PageActions = styled.div`
     border: 0;
     padding: 8px;
     background: #9157c1;
-    color: white;
+    color: #fff;
     &:disabled {
       opacity: 0.35;
       cursor: not-allowed;
