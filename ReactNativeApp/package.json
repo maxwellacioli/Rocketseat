@@ -20,7 +20,8 @@
     "react-native-safe-area-context": "^0.7.3",
     "react-native-screens": "^2.2.0",
     "react-native-stack": "^1.0.0-alpha11",
-    "reactotron-react-native": "^4.0.3"
+    "reactotron-react-native": "^4.0.3",
+    "styled-components": "^5.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.8.7",
