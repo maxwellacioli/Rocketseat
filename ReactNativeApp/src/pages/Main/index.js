@@ -42,6 +42,12 @@ export default class Main extends Component {
     }
   }
 
+  handleNavigate = (user) => {
+    const { navigation } = this.props;
+
+    navigation.navigate('User', { user });
+  }
+
   handleSubmit = async () => {
     const { users, newUser } = this.state;
 
@@ -96,7 +102,7 @@ export default class Main extends Component {
               <Name>{item.name}</Name>
               <Bio>{item.bio}</Bio>
 
-              <ProfileButton onPress={() => { }}>
+              <ProfileButton onPress={() => this.handleNavigate(item)}>
                 <ProfileButtonText>Ver Perfil</ProfileButtonText>
               </ProfileButton>
             </User>
