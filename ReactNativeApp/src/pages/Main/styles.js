@@ -58,7 +58,7 @@ export const Name = styled.Text`
   color: #333;
   font-weight: bold;
   margin-top: 4px;
-  text-align-center;
+  text-align: center;
 `;
 
 export const Bio = styled.Text.attrs({
