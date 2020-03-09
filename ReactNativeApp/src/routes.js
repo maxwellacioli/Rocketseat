@@ -1,5 +1,5 @@
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 
 import Main from './pages/Main';
@@ -14,7 +14,7 @@ export default function Routes() {
         <Stack.Navigator
           initialRouteName="Main"
           screenOptions={{
-            headerStyle: {backgroundColor: '#7159c1'},
+            headerStyle: { backgroundColor: '#7159c1' },
             headerTintColor: '#fff',
             headerBackTitleVisible: false,
             headerTitleAlign: 'center',
@@ -22,7 +22,7 @@ export default function Routes() {
           <Stack.Screen
             name="Main"
             component={Main}
-            options={{title: 'Usuários'}}
+            options={{ title: 'Usuários' }}
           />
           <Stack.Screen name="User" component={User} />
         </Stack.Navigator>

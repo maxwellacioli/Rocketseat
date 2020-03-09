@@ -33,6 +33,8 @@ module.exports = {
         extensions: ['.jsx', '.js'],
       },
     ],
-    'import/prefer-default-export': 'off'
+    'import/prefer-default-export': 'off',
+    'array-bracket-spacing': 'always',
+    'object-curly-spacing': 'always',
   },
 };
