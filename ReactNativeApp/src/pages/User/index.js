@@ -71,9 +71,11 @@ export default class User extends Component {
     });
   }
 
-  // handleNavigate = (repository) => {
-  //   console.tron.log(repository);
-  // }
+  handleNavigate = (repository) => {
+    const { navigation } = this.props;
+
+    navigation.navigate('Repository', { repository });
+  }
 
   render() {
     const { stars, loading, refreshing } = this.state;
@@ -96,7 +98,7 @@ export default class User extends Component {
             data={stars}
             keyExtractor={star => String(star.id)}
             renderItem={({ item }) => (
-              <Starred>
+              <Starred onStartShouldSetResponder={() => this.handleNavigate(item)} >
                 <OwnerAvatar source={{ uri: item.owner.avatar_url }} />
                 <Info>
                   <Title>{item.name}</Title>

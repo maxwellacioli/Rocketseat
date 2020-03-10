@@ -1,12 +1,15 @@
 import React, { Component } from 'react'
-import { Text, View } from 'react-native'
+import { WebView } from 'react-native-webview';
 
 export default class Repository extends Component {
   render() {
+
+    const { route } = this.props;
+
+    const repository = route.params.repository;
+
     return (
-      <View>
-        <Text> textInComponent </Text>
-      </View>
+      <WebView source={{ uri: repository.html_url }} style={{ flex: 1 }} />
     )
   }
 }
