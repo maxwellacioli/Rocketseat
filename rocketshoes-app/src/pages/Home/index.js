@@ -16,7 +16,7 @@ class Home extends Component {
 
     const data = response.data.map(product => ({
       ...product,
-      formatedPrice: formatPrice(product.price),
+      formattedPrice: formatPrice(product.price),
     }));
 
     this.setState({ products: data });
