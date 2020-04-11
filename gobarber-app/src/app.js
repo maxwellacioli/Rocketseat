@@ -2,6 +2,7 @@ import 'dotenv/config';
 
 import express from 'express';
 import path from 'path';
+import cors from 'cors';
 import Youch from 'youch';
 import * as Sentry from '@sentry/node';
 import sentryConfig from './config/sentry';
@@ -36,6 +37,10 @@ class App {
       seguem o formato json
      */
     this.server.use(express.json());
+    /*
+      Habilita o cors e define qual api pode solicitar dados deste app
+     */
+    this.server.use(cors());
     this.server.use(
       '/files',
       /*

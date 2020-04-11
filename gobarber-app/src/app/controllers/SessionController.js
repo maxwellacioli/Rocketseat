@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
 import * as Yup from 'yup';
 import User from '../models/User';
+import File from '../models/File';
 import authConfig from '../../config/auth';
 
 class SessionController {
@@ -34,7 +35,12 @@ class SessionController {
       Faz a busca no banco de dados por um usuario cujo email é o email
       passado no corpo da requisiçaõ
     */
-    const user = await User.findOne({ where: { email } });
+    const user = await User.findOne({
+      where: { email },
+      include: [
+        { model: File, as: 'avatar', attributes: ['id', 'path', 'url'] },
+      ],
+    });
 
     /*
       Caso user seja undefined (não encontrado no banco), será retornado
@@ -56,7 +62,7 @@ class SessionController {
       Faz a destruturação do elementos id e name do user retornado
       da query do banco
     */
-    const { id, name } = user;
+    const { id, name, avatar, provider } = user;
 
     /*
       cria um token através do método jwt.sign(...), a variavel id será
@@ -69,6 +75,8 @@ class SessionController {
         id,
         name,
         email,
+        provider,
+        avatar,
       },
       token: jwt.sign({ id }, authConfig.secret, {
         expiresIn: authConfig.expiresIn,

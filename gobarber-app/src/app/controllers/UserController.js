@@ -1,5 +1,6 @@
 import * as Yup from 'yup';
 import User from '../models/User';
+import File from '../models/File';
 
 class UserController {
   async store(req, res) {
@@ -109,9 +110,16 @@ class UserController {
       obtida no banco de dados e retorna um json com as seguintes informação:
       id, name, email e provider.
      */
-    const { id, name, provider } = await user.update(req.body);
+    // const { id, name, provider } = await user.update(req.body);
+    await user.update(req.body);
 
-    return res.json({ id, name, email, provider });
+    const { id, name, avatar } = await User.findByPk(req.userId, {
+      include: [
+        { model: File, as: 'avatar', attributes: ['id', 'path', 'url'] },
+      ],
+    });
+
+    return res.json({ id, name, email, avatar });
   }
 }
 
