@@ -7,9 +7,13 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.19.2",
+    "babel-plugin-root-import": "^6.5.0",
+    "customize-cra": "^0.9.1",
+    "eslint-import-resolver-babel-plugin-root-import": "^1.1.1",
     "history": "^4.10.1",
     "prop-types": "^15.7.2",
     "react": "^16.13.0",
+    "react-app-rewired": "^2.1.5",
     "react-dom": "^16.13.0",
     "react-icons": "^3.9.0",
     "react-router-dom": "^5.1.2",
@@ -18,9 +22,9 @@
     "styled-components": "^5.1.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
