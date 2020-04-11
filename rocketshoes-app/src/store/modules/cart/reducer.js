@@ -18,7 +18,7 @@ export default function cart(state = [], action) {
         }
       });
 
-    case '@cart/UPDATE_AMOUNT':
+    case '@cart/UPDATE_AMOUNT_SUCESS':
       return produce(state, draft => {
         const productIndex = draft.findIndex(p => p.id === action.id);
 
