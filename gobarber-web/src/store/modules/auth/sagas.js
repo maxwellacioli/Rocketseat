@@ -4,22 +4,26 @@ import history from '../../../services/history';
 import * as Actions from './actions';
 
 function* singIn({ payload }) {
-  const { email, password } = payload;
+  try {
+    const { email, password } = payload;
 
-  const response = yield call(api.post, '/sessions', {
-    email,
-    password,
-  });
+    const response = yield call(api.post, '/sessions', {
+      email,
+      password,
+    });
 
-  const { token, user } = response.data;
+    const { token, user } = response.data;
 
-  if (!user.provider) {
-    console.tron.error('Usuário não é prestador de serviço');
+    if (!user.provider) {
+      console.tron.error('Usuário não é prestador de serviço');
+    }
+
+    yield put(Actions.signInSuccess(token, user));
+
+    history.push('/dashboard');
+  } catch (error) {
+    yield put(Actions.signFailure());
   }
-
-  yield put(Actions.signInSuccess(token, user));
-
-  history.push('/dashboard');
 }
 
 export default all([takeLatest('@auth/SIGN_IN_REQUEST', singIn)]);
