@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { darken } from 'polished';
+import { darken, lighten } from 'polished';
 
 export const Wrapper = styled.div`
   height: 100%;
@@ -32,6 +32,13 @@ export const Content = styled.div`
       &::placeholder {
         color: rgba(255, 255, 255, 0.7);
       }
+    }
+
+    span {
+      color: ${lighten(0.1, '#f64c75')};
+      align-self: flex-start;
+      margin-bottom: 10px;
+      font-weight: bold;
     }
 
     button {
