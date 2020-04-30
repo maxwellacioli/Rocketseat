@@ -19,6 +19,8 @@ function* singIn({ payload }) {
       console.tron.error('Usuário não é prestador de serviço');
     }
 
+    api.defaults.headers.Authorization = `Bearer ${token}`;
+
     yield put(Actions.signInSuccess(token, user));
 
     history.push('/dashboard');
@@ -28,4 +30,42 @@ function* singIn({ payload }) {
   }
 }
 
-export default all([takeLatest('@auth/SIGN_IN_REQUEST', singIn)]);
+function* singUp({ payload }) {
+  try {
+    const { name, email, password } = payload;
+
+    const response = yield call(api.post, '/users', {
+      name,
+      email,
+      password,
+      provider: true,
+    });
+
+    const { id, provider } = response.data;
+
+    toast.success('Usuário cadastro com sucesso.');
+    yield put(Actions.signUpSuccess(id, name, email, provider));
+
+    history.push('/');
+  } catch (err) {
+    toast.error(`Já existe um usuário com o email inserido`);
+
+    yield put(Actions.signFailure());
+  }
+}
+
+function setToken({ payload }) {
+  if (!payload) return;
+
+  const { token } = payload.auth;
+
+  if (token) {
+    api.defaults.headers.Authorization = `Bearer ${token}`;
+  }
+}
+
+export default all([
+  takeLatest('persist/REHYDRATE', setToken),
+  takeLatest('@auth/SIGN_IN_REQUEST', singIn),
+  takeLatest('@auth/SIGN_UP_REQUEST', singUp),
+]);
